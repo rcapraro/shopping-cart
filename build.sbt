@@ -1,8 +1,8 @@
 import Dependencies._
 
-ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / scalaVersion := "2.13.8"
-ThisBuild / organization := "com.capraro"
+ThisBuild / version          := "0.1.0-SNAPSHOT"
+ThisBuild / scalaVersion     := "2.13.8"
+ThisBuild / organization     := "com.capraro"
 ThisBuild / organizationName := "RC Corp"
 
 ThisBuild / evictionErrorLevel := Level.Warn
@@ -11,9 +11,7 @@ ThisBuild / scalafixDependencies += Libraries.organizeImports
 resolvers ++= Resolver.sonatypeOssRepos("snapshots")
 
 lazy val root = (project in file("."))
-  .settings(
-    name := "shopping-cart"
-  )
+  .settings(name := "shopping-cart")
   .aggregate(core, tests)
 
 lazy val tests = (project in file("modules/tests"))
@@ -42,7 +40,7 @@ lazy val core = (project in file("modules/core"))
   .enablePlugins(DockerPlugin)
   .enablePlugins(AshScriptPlugin)
   .settings(
-    name := "shopping-cart-core",
+    name                 := "shopping-cart-core",
     Docker / packageName := "shopping-cart",
     scalacOptions ++= List("-Ymacro-annotations", "-Yrangepos", "-Wconf:cat=unused:info"),
     scalafmtOnCompile := true,
@@ -50,7 +48,7 @@ lazy val core = (project in file("modules/core"))
     Defaults.itSettings,
     dockerBaseImage := "openjdk:11-jre-slim-buster",
     dockerExposedPorts ++= Seq(8080),
-    makeBatScripts := Seq(),
+    makeBatScripts     := Seq(),
     dockerUpdateLatest := true,
     libraryDependencies ++= Seq(
       CompilerPlugin.kindProjector,
@@ -88,6 +86,5 @@ lazy val core = (project in file("modules/core"))
       Libraries.squants
     )
   )
-
 
 addCommandAlias("runLinter", ";scalafixAll --rules OrganizeImports")
