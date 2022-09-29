@@ -1,10 +1,8 @@
 package shop.retries
+import cats.Show
+import cats.derived.*
 
-import derevo.cats.show
-import derevo.derive
-
-@derive(show)
-sealed trait Retriable
+sealed trait Retriable derives Show
 
 object Retriable {
   case object Orders   extends Retriable

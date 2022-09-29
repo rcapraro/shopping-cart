@@ -3,30 +3,28 @@ import sbt._
 object Dependencies {
 
   object V {
-    val cats          = "2.8.0"
-    val catsEffect    = "3.3.12"
-    val catsRetry     = "3.1.0"
-    val circe         = "0.14.2"
-    val ciris         = "2.3.3"
-    val derevo        = "0.13.0"
-    val javaxCrypto   = "1.0.1"
-    val fs2           = "3.2.14"
-    val http4s        = "0.23.15"
-    val http4sJwtAuth = "1.0.0"
-    val log4cats      = "2.4.0"
-    val monocle       = "3.1.0"
-    val refined       = "0.10.1"
-    val redis4cats    = "1.2.0"
-    val skunk         = "0.3.1"
-    val squants       = "1.8.3"
+    val cats        = "2.8.0"
+    val kittens     = "3.0.0"
+    val catsEffect  = "3.3.14"
+    val catsRetry   = "3.1.0"
+    val circe       = "0.14.2"
+    val ciris       = "2.4.0"
+    val javaxCrypto = "1.0.1"
+    val fs2         = "3.3.0"
+    val http4s      = "0.23.16"
+    val jwt         = "9.1.1"
+    val log4cats    = "2.5.0"
+    val monocle     = "3.1.0"
+    val redis4cats  = "1.2.0"
+    val skunk       = "0.3.2"
+    val squants     = "1.8.3"
 
-    val betterMonadicFor = "0.3.1"
-    val kindProjector    = "0.13.2"
-    val logback          = "1.4.1"
-    val organizeImports  = "0.6.0"
-    val semanticDB       = "4.5.13"
+    val logback = "1.4.3"
 
-    val weaver = "0.7.15"
+    val organizeImports = "0.6.0"
+
+    val weaver = "0.8.0"
+    val munit  = "0.7.29"
   }
 
   object Libraries {
@@ -34,11 +32,10 @@ object Dependencies {
 
     def ciris(artifact: String): ModuleID = "is.cir" %% artifact % V.ciris
 
-    def derevo(artifact: String): ModuleID = "tf.tofu" %% s"derevo-$artifact" % V.derevo
-
     def http4s(artifact: String): ModuleID = "org.http4s" %% s"http4s-$artifact" % V.http4s
 
     val cats       = "org.typelevel"    %% "cats-core"   % V.cats
+    val kittens    = "org.typelevel"    %% "kittens"     % V.kittens
     val catsEffect = "org.typelevel"    %% "cats-effect" % V.catsEffect
     val catsRetry  = "com.github.cb372" %% "cats-retry"  % V.catsRetry
     val squants    = "org.typelevel"    %% "squants"     % V.squants
@@ -47,27 +44,17 @@ object Dependencies {
     val circeCore    = circe("core")
     val circeGeneric = circe("generic")
     val circeParser  = circe("parser")
-    val circeRefined = circe("refined")
 
-    val cirisCore    = ciris("ciris")
-    val cirisEnum    = ciris("ciris-enumeratum")
-    val cirisRefined = ciris("ciris-refined")
-
-    val derevoCore  = derevo("core")
-    val derevoCats  = derevo("cats")
-    val derevoCirce = derevo("circe-magnolia")
+    val cirisCore = ciris("ciris")
 
     val http4sDsl    = http4s("dsl")
     val http4sServer = http4s("ember-server")
     val http4sClient = http4s("ember-client")
     val http4sCirce  = http4s("circe")
 
-    val http4sJwtAuth = "dev.profunktor" %% "http4s-jwt-auth" % V.http4sJwtAuth
+    val jwtCore = "com.github.jwt-scala" %% "jwt-core" % V.jwt
 
     val monocleCore = "dev.optics" %% "monocle-core" % V.monocle
-
-    val refinedCore = "eu.timepit" %% "refined"      % V.refined
-    val refinedCats = "eu.timepit" %% "refined-cats" % V.refined
 
     val log4cats = "org.typelevel" %% "log4cats-slf4j" % V.log4cats
 
@@ -83,22 +70,15 @@ object Dependencies {
     val logback = "ch.qos.logback" % "logback-classic" % V.logback
 
     // Test
-    val catsLaws          = "org.typelevel"       %% "cats-laws"          % V.cats
-    val log4catsNoOp      = "org.typelevel"       %% "log4cats-noop"      % V.log4cats
-    val monocleLaw        = "dev.optics"          %% "monocle-law"        % V.monocle
-    val refinedScalacheck = "eu.timepit"          %% "refined-scalacheck" % V.refined
-    val weaverCats        = "com.disneystreaming" %% "weaver-cats"        % V.weaver
-    val weaverDiscipline  = "com.disneystreaming" %% "weaver-discipline"  % V.weaver
-    val weaverScalaCheck  = "com.disneystreaming" %% "weaver-scalacheck"  % V.weaver
+    val catsLaws         = "org.typelevel"       %% "cats-laws"         % V.cats
+    val log4catsNoOp     = "org.typelevel"       %% "log4cats-noop"     % V.log4cats
+    val monocleLaw       = "dev.optics"          %% "monocle-law"       % V.monocle
+    val weaverCats       = "com.disneystreaming" %% "weaver-cats"       % V.weaver
+    val weaverDiscipline = "com.disneystreaming" %% "weaver-discipline" % V.weaver
+    val weaverScalaCheck = "com.disneystreaming" %% "weaver-scalacheck" % V.weaver
+    val munit            = "org.scalameta"       %% "munit"             % V.munit
 
     // Scalafix rules
     val organizeImports = "com.github.liancheng" %% "organize-imports" % V.organizeImports
   }
-
-  object CompilerPlugin {
-    val betterMonadicFor = compilerPlugin("com.olegpy" %% "better-monadic-for" % V.betterMonadicFor)
-    val kindProjector    = compilerPlugin("org.typelevel" % "kind-projector" % V.kindProjector cross CrossVersion.full)
-    val semanticDB       = compilerPlugin("org.scalameta" % "semanticdb-scalac" % V.semanticDB cross CrossVersion.full)
-  }
-
 }

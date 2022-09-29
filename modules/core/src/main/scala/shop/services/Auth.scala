@@ -1,6 +1,6 @@
 package shop.services
 
-import dev.profunktor.auth.jwt.JwtToken
+import http4s.jwt.JwtToken
 import shop.domain.auth.{Password, UserName}
 import shop.http.auth.users.User
 

@@ -1,6 +1,7 @@
 package shop.domain
 
-import io.circe.Encoder
+import cats.{Eq, Show}
+import io.circe.{Codec, Encoder}
 import monocle.Iso
 
 object healthcheck {
@@ -18,12 +19,12 @@ object healthcheck {
         case Unreachable => false
       }(if (_) Okay else Unreachable)
 
-    implicit val jsonEncoder: Encoder[Status] = Encoder.forProduct1("status")(_.toString)
+    given jsonEncoder: Encoder[Status] = Encoder.forProduct1("status")(_.toString)
   }
 
-  case class RedisStatus(value: Status)
+  case class RedisStatus(value: Status) derives Encoder.AsObject
 
-  case class PostgresStatus(value: Status)
+  case class PostgresStatus(value: Status) derives Encoder.AsObject
 
-  case class AppStatus(redis: RedisStatus, postgres: PostgresStatus)
+  case class AppStatus(redis: RedisStatus, postgres: PostgresStatus) derives Encoder.AsObject
 }

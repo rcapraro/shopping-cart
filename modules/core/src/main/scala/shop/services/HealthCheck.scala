@@ -2,6 +2,6 @@ package shop.services
 
 import shop.domain.healthcheck.AppStatus
 
-trait Healthcheck[F[_]] {
+trait HealthCheck[F[_]] {
   def status: F[AppStatus]
 }

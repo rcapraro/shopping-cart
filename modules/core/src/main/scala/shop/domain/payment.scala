@@ -2,7 +2,7 @@ package shop.domain
 
 import shop.domain.auth.UserId
 import shop.domain.checkout.Card
-import squants.Money
+import squants.market.Money
 
 object payment {
 

@@ -4,7 +4,7 @@ import cats.data.NonEmptyList
 import shop.domain.auth.UserId
 import shop.domain.cart.CartItem
 import shop.domain.order.{Order, OrderId, PaymentId}
-import squants.Money
+import squants.market.Money
 
 trait Orders[F[_]] {
   def get(userId: UserId, orderId: OrderId): F[Option[Order]]

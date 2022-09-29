@@ -1,9 +1,12 @@
 .metals/
-.vscode/
-target/
+.bloop/
 .bsp/
+
+target/
+
+.vscode/
+.lh
+
 .idea/
+
 .DS_STORE
-logs/
-.log
-personal.conf

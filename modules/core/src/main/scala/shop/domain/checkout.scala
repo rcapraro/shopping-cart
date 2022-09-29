@@ -1,26 +1,25 @@
 package shop.domain
 
-import eu.timepit.refined.api.Refined
-import eu.timepit.refined.boolean.And
-import eu.timepit.refined.collection.Size
-import eu.timepit.refined.string.{MatchesRegex, ValidInt}
+import cats.data.{Validated, ValidatedNel}
+import cats.derived.*
+import cats.{Eq, Show}
+import io.circe.{Codec, Encoder}
 
 object checkout {
 
-  type Rgx = "^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$"
+  type CardNamePred       = String
+  type CardNumberPred     = Long
+  type CardExpirationPred = String
+  type CardCVVPred        = Int
 
-  type CardNamePred       = String Refined MatchesRegex[Rgx]
-  type CardNumberPred     = Long Refined Size[16]
-  type CardExpirationPred = String Refined (Size[4] And ValidInt)
-  type CardCVVPred        = Int Refined Size[3]
+  // TODO validation and custom decoders
+  case class CardName(value: CardNamePred) derives Codec.AsObject, Show
 
-  case class CardName(value: CardNamePred)
+  case class CardNumber(value: CardNumberPred) derives Codec.AsObject, Show
 
-  case class CardNumber(value: CardNumberPred)
+  case class CardExpiration(value: CardExpirationPred) derives Codec.AsObject, Show
 
-  case class CardExpiration(value: CardExpirationPred)
+  case class CardCVV(value: CardCVVPred) derives Codec.AsObject, Show
 
-  case class CardCVV(value: CardCVVPred)
-
-  case class Card(name: CardName, number: CardNumber, expiration: CardExpiration, cvv: CardCVV)
+  case class Card(name: CardName, number: CardNumber, expiration: CardExpiration, cvv: CardCVV) derives Codec.AsObject, Show
 }
