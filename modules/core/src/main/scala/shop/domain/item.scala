@@ -3,10 +3,12 @@ package shop.domain
 import cats.derived.*
 import cats.{Eq, Show}
 import io.circe.{Codec, KeyDecoder, KeyEncoder}
-import shop.Money.given
+import monocle.Iso
+import shop.domain.Money.given
 import shop.domain.brand.*
 import shop.domain.cart.{CartItem, Quantity}
 import shop.domain.category.*
+import shop.optics.IsUUID
 import squants.market.*
 
 import java.util.UUID
@@ -18,6 +20,9 @@ object item {
   object ItemId {
     given keyEncoder: KeyEncoder[ItemId] = (itemId: ItemId) => itemId.value.toString
     given keyDecoder: KeyDecoder[ItemId] = (key: String) => Try(ItemId(UUID.fromString(key))).toOption
+    given uuid: IsUUID[ItemId] = new IsUUID[ItemId] {
+      override def _UUID: Iso[UUID, ItemId] = Iso[UUID, ItemId](apply)(_.value)
+    }
   }
 
   case class ItemName(value: String) derives Codec.AsObject, Show, Eq

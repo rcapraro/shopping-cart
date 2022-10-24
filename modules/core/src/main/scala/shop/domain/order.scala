@@ -3,7 +3,7 @@ package shop.domain
 import cats.derived.*
 import cats.{Eq, Show}
 import io.circe.Codec
-import shop.Money.given
+import shop.domain.Money.given
 import shop.domain.cart.Quantity
 import shop.domain.item.ItemId
 import squants.market.Money
@@ -12,9 +12,9 @@ import java.util.UUID
 import scala.util.control.NoStackTrace
 
 object order {
-  case class OrderId(uuid: UUID) derives Codec.AsObject, Show, Eq
+  case class OrderId(value: UUID) derives Codec.AsObject, Show, Eq
 
-  case class PaymentId(uuid: UUID) derives Codec.AsObject, Show, Eq
+  case class PaymentId(value: UUID) derives Codec.AsObject, Show, Eq
 
   case class Order(id: OrderId, pid: PaymentId, items: Map[ItemId, Quantity], total: Money) derives Codec.AsObject
 

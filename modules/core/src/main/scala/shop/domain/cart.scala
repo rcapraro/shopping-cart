@@ -3,7 +3,7 @@ package shop.domain
 import cats.derived.*
 import cats.{Eq, Show}
 import io.circe.{Codec, Decoder, Encoder}
-import shop.Money.given
+import shop.domain.Money.given
 import shop.domain.auth.UserId
 import shop.domain.item.ItemId.*
 import shop.domain.item.{Item, ItemId}

@@ -1,4 +1,4 @@
-package shop
+package shop.domain
 
 import cats.syntax.contravariant.*
 import cats.{Eq, Monoid, Show}

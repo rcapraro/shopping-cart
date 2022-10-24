@@ -10,7 +10,7 @@ import org.http4s.circe.CirceEntityEncoder.*
 import org.http4s.circe.*
 import org.http4s.dsl.Http4sDsl
 import org.http4s.server.Router
-import shop.JwtToken.given
+import shop.domain.JwtToken.given
 import shop.domain.auth.*
 import shop.services.Auth
 
